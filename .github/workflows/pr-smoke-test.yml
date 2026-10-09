@@ -15,6 +15,10 @@ on:
 
 name: Live Provider Tests
 
+concurrency:
+  group: pr-smoke-test-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   check-fork:
     runs-on: ubuntu-latest

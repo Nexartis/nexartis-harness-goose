@@ -13,6 +13,10 @@ on:
       - '**/*.rs'
   workflow_dispatch:
 
+concurrency:
+  group: cargo-machete-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   machete:
     runs-on: ubuntu-latest
